@@ -22,9 +22,10 @@ class SavaRegisterCommand : Command("savaregister") {
             newKey.playerId = sender.uniqueId.toString();
             newKey.apiKey = ApiKeyDataSet.generateApiKey();
 
+            apikeys.add(newKey);
             SavaTP.sendMessage(sender, "Your API key is: §6§l${newKey.apiKey}");
             return true;
-        } else  {
+        } else {
             SavaTP.sendMessage(sender, "You already have an API key: §6§l${apikey.apiKey}");
             return true;
         }

@@ -15,7 +15,7 @@ class DeletePointHandler : HttpHandler {
         exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8")
         exchange.getResponseHeaders().set("Access-Control-Allow-Origin", SavaTP.savaConfig.cors);
 
-        val response = "{\"status\": \"ng\"}"
+        var response = "{\"status\": \"ng\"}"
         exchange.sendResponseHeaders(401, response.toByteArray().size.toLong());
 
         var key = "";
@@ -50,7 +50,7 @@ class DeletePointHandler : HttpHandler {
                         );
                     }
 
-                    val response = "{\"status\": \"ok\"}"
+                    response = "{\"status\": \"ok\"}"
                     exchange.sendResponseHeaders(200, response.toByteArray().size.toLong());
                     break;
                 }

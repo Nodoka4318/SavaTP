@@ -9,6 +9,10 @@ import java.nio.file.StandardOpenOption
 class ApiKeyDataSet {
     var apiKeyDatas: MutableList<ApiKeyData> = mutableListOf<ApiKeyData>();
 
+    fun addApiKeyData(apiKeyData: ApiKeyData) {
+        apiKeyDatas.add(apiKeyData);
+    }
+
     fun getPlayerApiKeyData(playerId: String): ApiKeyData? {
         return apiKeyDatas.find { it.playerId == playerId };
     }
