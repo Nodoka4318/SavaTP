@@ -8,16 +8,22 @@ import java.nio.file.StandardOpenOption
 
 class Config {
     var port: Int;
-    var context: String;
+    var listPointsContext: String;
+    var deletePointContext: String;
+    var cors: String;
 
-    constructor(port: Int, context: String) {
+    constructor(port: Int, listPointsContext: String, deletePointContext: String) {
         this.port = port;
-        this.context = context;
+        this.listPointsContext = listPointsContext;
+        this.deletePointContext = deletePointContext;
+        this.cors = "*";
     }
 
     constructor() {
         this.port = 8080;
-        this.context = "/savatp";
+        this.listPointsContext = "/savapoints";
+        this.deletePointContext = "/deletepoint";
+        this.cors = "*";
     }
 
     fun formatJson(): String {

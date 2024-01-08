@@ -66,7 +66,7 @@ class LocationData {
             return "*";
         }
 
-        return Bukkit.getPlayer(UUID.fromString(CreatorUUID)).name;
+        return Bukkit.getOfflinePlayer(UUID.fromString(CreatorUUID)).name;
     }
 
     companion object {

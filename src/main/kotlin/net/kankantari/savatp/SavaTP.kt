@@ -1,6 +1,7 @@
 package net.kankantari.savatp
 
 import net.kankantari.savatp.commands.*
+import net.kankantari.savatp.io.ApiKeyDataSet
 import net.kankantari.savatp.io.Config
 import net.kankantari.savatp.io.LocationDataSet
 import net.kankantari.savatp.web.ApiServer
@@ -27,6 +28,9 @@ class SavaTP : JavaPlugin() {
         logger.info("Loading config...");
         savaConfig = Config.load();
 
+        logger.info("Loading api keys...");
+        apiKeyDataSet = ApiKeyDataSet.load();
+
         logger.info("Starting HTTP service...");
         apiServer = ApiServer();
         apiServer.start(savaConfig.port);
@@ -36,6 +40,9 @@ class SavaTP : JavaPlugin() {
         logger.info("Saving all teleport points...");
         locationDataSet.save();
         logger.info("Saved " + locationDataSet.Locations.size + " teleport points!");
+
+        logger.info("Saving api keys...");
+        apiKeyDataSet.save();
     }
 
     private fun registerCommands() {
@@ -55,6 +62,7 @@ class SavaTP : JavaPlugin() {
         lateinit var savaConfig: Config;
         lateinit var savaLogger: Logger;
         lateinit var apiServer: ApiServer;
+        lateinit var apiKeyDataSet: ApiKeyDataSet;
 
         val commands: List<Command>
             get() = listOf(
@@ -75,6 +83,7 @@ class SavaTP : JavaPlugin() {
             sendMessage(entity, "   /savatp delete <name> - Delete a teleport point", false);
             sendMessage(entity, "   /savatp <name> - Teleport to a teleport point", false);
             sendMessage(entity, "   /savatp list - List all teleport points", false);
+            sendMessage(entity, "   /savaregister - Create your api key", false);
         }
 
         fun log(message: String) {
