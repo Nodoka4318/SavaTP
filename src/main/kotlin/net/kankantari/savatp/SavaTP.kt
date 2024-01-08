@@ -70,7 +70,8 @@ class SavaTP : JavaPlugin() {
                 SavaSetCommand(),
                 SavaDeleteCommand(),
                 SavaPointsCommand(),
-                SavaTeleportCommand()
+                SavaTeleportCommand(),
+                SavaRegisterCommand()
             )
 
         fun sendMessage(entity: CommandSender, message: String, prefixed: Boolean = true) {

@@ -16,8 +16,9 @@ class DeletePointHandler : HttpHandler {
         exchange.getResponseHeaders().set("Access-Control-Allow-Origin", SavaTP.savaConfig.cors);
 
         val response = "{\"status\": \"ng\"}"
-        var key = "";
+        exchange.sendResponseHeaders(401, response.toByteArray().size.toLong());
 
+        var key = "";
         val params = requestURI?.query?.split("?");
 
         for (i in 0..params!!.size - 1) {
@@ -25,31 +26,34 @@ class DeletePointHandler : HttpHandler {
                 key = params[i].split("=")[1];
                 val apiKeyData = SavaTP.apiKeyDataSet.findApiKeyData(key);
                 if (apiKeyData == null) {
-                    exchange.sendResponseHeaders(401, response.toByteArray().size.toLong());
-                    return;
+                    break;
                 }
 
                 if (apiKeyData.playerId != exchange.getRemoteAddress().getAddress().getHostAddress()) {
-                    exchange.sendResponseHeaders(401, response.toByteArray().size.toLong());
-                    return;
+                    break;
                 }
 
             }
         }
 
-        for (i in 0..params!!.size - 1) {
-            if (params[i].startsWith("point=")) {
-                val name = params[i].split("=")[1];
-                SavaTP.locationDataSet.deleteLocation(name);
+        if (key != "") {
+            for (i in 0..params!!.size - 1) {
+                if (params[i].startsWith("point=")) {
+                    val name = params[i].split("=")[1];
+                    SavaTP.locationDataSet.deleteLocation(name);
 
-                val playerName = SavaTP.apiKeyDataSet.findApiKeyData(key)?.getPlayerName();
-                Bukkit.getOnlinePlayers().forEach {
-                    SavaTP.sendMessage(it, "Teleport point §6§l$name §fhas been deleted by §6§l${playerName}§f via web!");
+                    val playerName = SavaTP.apiKeyDataSet.findApiKeyData(key)?.getPlayerName();
+                    Bukkit.getOnlinePlayers().forEach {
+                        SavaTP.sendMessage(
+                            it,
+                            "Teleport point §6§l$name §fhas been deleted by §6§l${playerName}§f via web!"
+                        );
+                    }
+
+                    val response = "{\"status\": \"ok\"}"
+                    exchange.sendResponseHeaders(200, response.toByteArray().size.toLong());
+                    break;
                 }
-
-                val response = "{\"status\": \"ok\"}"
-                exchange.sendResponseHeaders(200, response.toByteArray().size.toLong());
-                break;
             }
         }
 
