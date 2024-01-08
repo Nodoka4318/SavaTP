@@ -14,7 +14,7 @@ class SavaPointsCommand : Command("savapoints") {
 
         SavaTP.sendMessage(sender, "Teleport points:");
         locations.forEach {
-            SavaTP.sendMessage(sender, "   §6§l${it.Name} §f(${it.X}, ${it.Y}, ${it.Z}, ${it.World})");
+            SavaTP.sendMessage(sender, "   §6§l${it.Name} §f(${it.X}, ${it.Y}, ${it.Z}, ${it.World})", false);
         }
 
         return true;

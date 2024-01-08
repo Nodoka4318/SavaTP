@@ -65,16 +65,16 @@ class SavaTP : JavaPlugin() {
                 SavaTeleportCommand()
             )
 
-        fun sendMessage(entity: CommandSender, message: String) {
-            entity.sendMessage("§2§l[§f§lSavaTP§2§l] §f$message");
+        fun sendMessage(entity: CommandSender, message: String, prefixed: Boolean = true) {
+            entity.sendMessage("${if (prefixed) "§2§l[§f§lSavaTP§2§l] " else ""}§f$message");
         }
 
         fun sendHelp(entity: CommandSender) {
             sendMessage(entity, "SavaTP Help:");
-            sendMessage(entity, "   /savatp set <name> - Set a teleport point");
-            sendMessage(entity, "   /savatp delete <name> - Delete a teleport point");
-            sendMessage(entity, "   /savatp <name> - Teleport to a teleport point");
-            sendMessage(entity, "   /savatp list - List all teleport points");
+            sendMessage(entity, "   /savatp set <name> - Set a teleport point", false);
+            sendMessage(entity, "   /savatp delete <name> - Delete a teleport point", false);
+            sendMessage(entity, "   /savatp <name> - Teleport to a teleport point", false);
+            sendMessage(entity, "   /savatp list - List all teleport points", false);
         }
 
         fun log(message: String) {

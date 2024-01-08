@@ -23,7 +23,7 @@ class SavaDeleteCommand : Command("delpoint") {
             SavaTP.sendMessage(sender, "Teleport point deleted!");
 
             Bukkit.getOnlinePlayers().forEach {
-                SavaTP.sendMessage(it, "Teleport point §6§l$name §fhas been deleted!");
+                SavaTP.sendMessage(it, "Teleport point §6§l$name §fhas been deleted by §6§l${sender.name}§f!");
             }
 
             return true;

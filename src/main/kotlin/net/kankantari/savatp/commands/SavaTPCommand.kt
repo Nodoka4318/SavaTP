@@ -18,7 +18,7 @@ class SavaTPCommand : Command("savatp") {
                 "set" -> SavaSetCommand().execute(sender, commandLabel, newArgs)
                 "delete" -> SavaDeleteCommand().execute(sender, commandLabel, newArgs)
                 "list" -> SavaPointsCommand().execute(sender, commandLabel, newArgs)
-                else -> SavaTeleportCommand().execute(sender, commandLabel, newArgs)
+                else -> SavaTeleportCommand().execute(sender, commandLabel, args)
             }
 
             return true
