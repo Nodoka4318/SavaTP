@@ -16,23 +16,18 @@ class DeletePointHandler : HttpHandler {
         exchange.getResponseHeaders().set("Access-Control-Allow-Origin", SavaTP.savaConfig.cors);
 
         var response = "{\"status\": \"ng\"}"
-        exchange.sendResponseHeaders(401, response.toByteArray().size.toLong());
 
         var key = "";
-        val params = requestURI?.query?.split("?");
+        val params = requestURI?.query?.replace("?", "")?.split("&");
 
         for (i in 0..params!!.size - 1) {
             if (params[i].startsWith("key=")) {
                 key = params[i].split("=")[1];
                 val apiKeyData = SavaTP.apiKeyDataSet.findApiKeyData(key);
                 if (apiKeyData == null) {
+                    key = "";
                     break;
                 }
-
-                if (apiKeyData.playerId != exchange.getRemoteAddress().getAddress().getHostAddress()) {
-                    break;
-                }
-
             }
         }
 
@@ -55,6 +50,10 @@ class DeletePointHandler : HttpHandler {
                     break;
                 }
             }
+
+            exchange.sendResponseHeaders(401, response.toByteArray().size.toLong());
+        } else {
+            exchange.sendResponseHeaders(401, response.toByteArray().size.toLong());
         }
 
         val os: OutputStream = exchange.getResponseBody()
